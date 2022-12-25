@@ -1,6 +1,6 @@
 const Notification=require('../models/notification.models')
 
-exports.createEmail=async(req,res)=>{
+exports.acceptNotification=async(req,res)=>{
     const emailObj={
         subject:req.body.subject,
         content:req.body.content,
@@ -11,7 +11,7 @@ exports.createEmail=async(req,res)=>{
     try
     {
         const notification= await Notification.create(emailObj);
-        console.log("#### Notification sucessfully created ####")
+        console.log("#### Notification successfully created ####")
         res.status(201).send(notification);
     }
     catch(err)
@@ -25,24 +25,10 @@ exports.createEmail=async(req,res)=>{
 
 
 
-exports.getNotification=async(req,res)=>{
+exports.getAllNotification=async(req,res)=>{
     try
     {
-        const query={};
-        if(req.query.emailStatus)
-        {
-            query.emailStatus=req.query.emailStatus
-        }
-        if(req.body.subject)
-        {
-            query.subject=req.query.subject
-        }
-        if(req.body._id)
-        {
-            query._id=req.query._id
-        }
-
-        const notification=await Notification.find(query)
+        const notification=req.query;
         res.status(200).send(notification)
     }
     catch(err)
@@ -52,6 +38,20 @@ exports.getNotification=async(req,res)=>{
             message:"Internal server error while getting email"
         })
     }
-    
+}
 
+
+exports.getSingleNotification=async(req,res)=>{
+    try
+    {
+        const notification=req.params;
+        res.status(200).send(notification)
+    }
+    catch(err)
+    {
+        console.log("error while getting email",err.message);
+        res.status(500).send({
+            message:"Internal server error while getting email"
+        })
+    }
 }

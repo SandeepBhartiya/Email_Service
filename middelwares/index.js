@@ -1,5 +1,6 @@
-const emailReqBodies=require('./emailReqBodies')
-
+const emailReqBodies=require('./emailReqBodies');
+const authValidation=require('./auth');
 module.exports={
-    emailReqBodies:emailReqBodies
+    emailReqBodies:emailReqBodies,
+    authValidation:authValidation
 }
